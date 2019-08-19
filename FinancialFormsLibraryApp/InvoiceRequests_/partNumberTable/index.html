@@ -1,0 +1,955 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>A Pen by Christopher Hernandez</title>
+      <link rel="stylesheet" href="partNumberTable\css\style.css">
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:_dlc_DocId msdt:dt="string">MS7XCWTDAWNM-1981315842-46</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">7a37f436-7ee0-49a0-b07c-97a6a035fadd</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://qacollaborate2.ncci.com/sites/ffl/_layouts/15/DocIdRedir.aspx?ID=MS7XCWTDAWNM-1981315842-46, MS7XCWTDAWNM-1981315842-46</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+
+  <table id="partsTable" class="tg" style="table-layout: fixed; width: 995px">
+<colgroup>
+<col style="width: 100px">
+<col style="width: 100px">
+<col style="width: 201px">
+<col style="width: 430px">
+<col style="width: 101px">
+<col style="width: 101px">
+<col style="width: 0px">
+<col style="width: 101px">
+<col style="width: 275px">
+</colgroup>
+  <tr>
+    <th class="tg-9adz"></th>
+    <th class="tg-k04z"></th>
+    <th class="tg-n2m0">Part Number</th>
+    <th class="tg-n2m0">Description</th>
+    <th class="tg-n2m0">Quantity</th>
+    <th class="tg-n2m0">Price</th>
+    <th class="tg-n2m0">Tax</th>
+    <th class="tg-n2m0">Amount</th>
+    <th class="tg-n2m0">GL Dist</th>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="1" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart1" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber1" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description1" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity1" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price1" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax1" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount1" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist1" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+    <tr>
+    <td class="tg-qxfx"><button id="2" type="button">Select</button></td>
+    <td class="tg-qxfx"><button id="deletePart2" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-qxfx">
+      <input class="partNumberCol" id="partNumber2" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="descriptionCol" id="description2" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="quantityCol" id="quantity2" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="priceCol" id="price2" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="taxCol" id="tax2" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="amountCol" id="amount2" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-qxfx">
+      <input class="glDistCol" id="glDist2" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="3" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart3" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber3" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description3" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity3" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price3" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax3" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount3" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist3" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="4" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart4" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber4" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description4" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity4" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price4" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax4" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount4" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist4" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="5" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart5" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber5" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description5" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity5" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price5" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax5" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount5" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist5" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="6" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart6" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber6" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description6" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity6" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price6" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax6" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount6" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist6" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="7" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart7" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber7" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description7" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity7" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price7" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax7" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount7" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist7" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="8" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart8" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber8" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description8" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity8" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price8" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax8" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount8" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist8" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="9" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart9" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber9" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description9" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity9" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price9" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax9" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount9" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist9" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"><button id="10" type="button">Select</button></td>
+    <td class="tg-ehtc"><button id="deletePart10" type="button" onclick="deleteRow()">Delete</button></td>
+    <td class="tg-ehtc">
+      <input class="partNumberCol" id="partNumber10" name="partNumber" type="text"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="descriptionCol" id="description10" name="description" type="text" style="width: 400px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="quantityCol" id="quantity10" name="quantity" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="priceCol" id="price10" name="price" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="taxCol" id="tax10" name="tax" type="number" style="width: 75px;"/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="amountCol" id="amount10" name="amount" type="number" style="width: 75px;" title="This will be calculated for you" readonly/>
+    </td>
+    <td class="tg-ehtc">
+      <input class="glDistCol" id="glDist10" name="glDist" type="text" style="width: 250px;"/>
+    </td>
+  </tr>
+  <tr>
+    <td class="tg-ehtc"></td>
+    <td class="tg-ehtc"></td>
+    <td class="tg-ehtc">
+    </td>
+    <td class="tg-ehtc">
+    </td>
+    <td class="tg-ehtc">
+    </td>
+    <td class="tg-ehtc">
+    </td>
+    <td class="tg-ehtc">
+    </td>
+    <td class="tg-ehtc">
+      <span>Total: </span></td>
+    <td class="tg-ehtc">
+    </td>
+  </tr>
+</table>
+
+
+<div><br/>
+  <span>
+    <button id="jsonMaker" type="button">Submit</button>
+  </span>
+</div>
+</body>
+
+</html>
+
+<script>
+  document.querySelector("#jsonMaker").setAttribute('disabled', true);
+  window.onunload = function() {
+    localStorage.clear();
+  }
+
+
+  //document.querySelector("#1").addEventListener('click', openPartNumberSelect);
+  $( "#1" ).click(openPartNumberSelect);
+  $( "#2" ).click(openPartNumberSelect);
+  $( "#3" ).click(openPartNumberSelect);
+  $( "#4" ).click(openPartNumberSelect);
+  $( "#5" ).click(openPartNumberSelect);
+  $( "#6" ).click(openPartNumberSelect);
+  $( "#7" ).click(openPartNumberSelect);
+  $( "#8" ).click(openPartNumberSelect);
+  $( "#9" ).click(openPartNumberSelect);
+  $( "#10" ).click(openPartNumberSelect);
+
+  function openPartNumberSelect(e) {
+    console.log('clicked to open');
+    window.open("../../SiteAssets/FinancialFormsLibraryApp/InvoiceRequests_/PartNumberSelectApp/partNumberSelect.html", "", "scrollbars=yes,resizable=yes,width=1750px,height=600,top=300,left=100");
+    var target = e.target || e.srcElement;
+    console.log(e.target);
+    var elementId = target.id;
+    localStorage.setItem('identifier', elementId);
+  };
+
+//This code block prevents the calendar jump that happens on some browsers
+$('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(24) > td.ms-formbody > span > table > tbody > tr > td:nth-child(2) > a > img').click(
+function(){
+  setTimeout(function(){ 
+  var targetCalendar = document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(16) > td.ms-formlabel > h3 > nobr");
+  targetCalendar.scrollIntoView();
+  }, 500);
+});
+$('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(25) > td.ms-formbody > span > table > tbody > tr > td:nth-child(2) > a > img').click(
+function(){
+  setTimeout(function(){ 
+  var targetCalendar = document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(16) > td.ms-formlabel > h3 > nobr");
+  targetCalendar.scrollIntoView();
+  }, 500);
+});
+$('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(26) > td.ms-formbody > span > table > tbody > tr > td:nth-child(2) > a > img').click(
+function(){
+  setTimeout(function(){ 
+  var targetCalendar = document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(16) > td.ms-formlabel > h3 > nobr");
+  targetCalendar.scrollIntoView();
+  }, 500);
+});
+$('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(39) > td.ms-formbody > span > table > tbody > tr > td:nth-child(2) > a > img').click(
+function(){
+  setTimeout(function(){ 
+  var targetCalendar = document.querySelector("#\\37 ");
+  targetCalendar.scrollIntoView();
+  }, 500);
+});
+
+
+//This hides or reveals the part number table depending on what Invoice Type is selected
+
+$('body').change(function(){
+    var typePremium = document.querySelector('input[value="ctl01"]').checked;
+    var typeTrans = document.querySelector('input[value="ctl00"]').checked;
+    if(typePremium){
+      console.log('Premium');
+      localStorage.setItem('invoiceType', 'CUPRBillTo');
+      document.querySelector("#rowForTable").style.visibility = "collapse";
+      document.querySelector("#partsTable").style.display = "none";
+      document.querySelector("#totalInvoice").style.display = "contents";
+      document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td > span:nth-child(1)").style.display = "contents";
+      document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.position = "absolute";
+      document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.top = "1170px";
+      document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(28) > td.ms-formbody > span:nth-child(2)").style.display = "none";
+      document.querySelector("#idAttachmentsRow").style.top = "125%";
+    }
+    if(typeTrans){
+      console.log('Trans');
+      document.querySelector("#rowForTable").style.visibility = "visible";
+    document.querySelector("#partsTable").style.display = "table";
+    document.querySelector("#totalInvoice").style.display = "none";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td > span:nth-child(1)").style.display = "contents";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.position = "absolute";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.top = "1170px";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(28) > td.ms-formbody > span:nth-child(2)").style.display = "none";
+    document.querySelector("#idAttachmentsRow").style.top = "208%";
+    }
+  });
+
+  
+  
+  //This changes the Save button to say Submit
+  var value = document.querySelectorAll('input[value="Save"]')[1].id;
+  document.querySelector("#"+value.toString()).value = 'Submit';
+
+  document.querySelector("#jsonMaker").addEventListener("click", numberOfItems);
+
+
+  $("#part1 > table").change(function(){
+    //Form validation checks to see certain required fields are filled in before submit button is enabled
+    var state1 = document.querySelector('input[value="ctl00"]').checked;
+    var state2 = document.querySelector('input[value="ctl01"]').checked;
+    var state3 = document.querySelector('input[title="Please state why this billing is not being processed by Customer Service Required Field"]').value;
+    var state4 = document.querySelector('input[title="Customer Number Required Field"]').value;
+    var state5 = document.querySelector('input[title="Ship To Contact Name Required Field"]').value;
+    var state6 = document.querySelector('input[title="Billing Date From Required Field"]').value;
+    var state7 = document.querySelector('input[title="Billing Date To Required Field"]').value;
+    var state8 = document.querySelector('[title="Billing Frequency Required Field"]').value;
+    if((state1 || state2) && state3 != "" && state4 != "" && state5 != "" && state6 && state7 && state8){
+      document.querySelector("#jsonMaker").removeAttribute('disabled');
+      console.log('Can submit now.');
+    }else{
+      document.querySelector("#jsonMaker").setAttribute('disabled', true);
+    }
+  });
+
+
+  $('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(15) > td.ms-formbody > span > input[type=checkbox]').change(
+    function(){
+      var checkedButton = document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(15) > td.ms-formbody > span > input[type=checkbox]").checked;
+      if(checkedButton){
+        document.querySelector('input[title="Ship To Contact Name Required Field"]').value = document.querySelector('#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(15) > td.ms-formbody > span > input[type=checkbox]').value;
+        document.querySelector('input[title="Ship To Contact Name Required Field"]').value = document.querySelector('input[title="Bill To Contact Name"]').value;
+        document.querySelector('input[title="Ship To Address"]').value = document.querySelector('input[title="Bill To Address"]').value;
+        document.querySelector('input[title="Ship To Street 1"]').value = document.querySelector('input[title="Bill To Street 1"]').value;
+        document.querySelector('input[title="Ship To Street 2"]').value = document.querySelector('input[title="Bill To Street 2"]').value;
+        document.querySelector('input[title="Ship To City"]').value = document.querySelector('input[title="Bill To City"]').value;
+        document.querySelector('input[title="Ship To State"]').value = document.querySelector('input[title="Bill To State"]').value;
+        document.querySelector('input[title="Ship To Zip"]').value = document.querySelector('input[title="Bill To Zip"]').value;
+      } else {
+        document.querySelector('input[title="Ship To Contact Name Required Field"]').value = "";
+        document.querySelector('input[title="Ship To Address"]').value = "";
+        document.querySelector('input[title="Ship To Street 1"]').value = "";
+        document.querySelector('input[title="Ship To Street 2"]').value = "";
+        document.querySelector('input[title="Ship To City"]').value = "";
+        document.querySelector('input[title="Ship To State"]').value = "";
+        document.querySelector('input[title="Ship To Zip"]').value = "";
+      }
+    });
+
+    (function () {
+    
+    /* Internet Explorer 11 may have trouble retrieving the number type
+    of an input value. This short script performs a quick test, and repairs
+    the functionality if necessary. Load before attempting to use the
+    `valueAsNumber` property on input elements. */
+
+    "use strict";
+
+    var a = document.createElement( "input" );
+
+    a.setAttribute( "type", "number" );
+    a.setAttribute( "value", 2319 );
+
+    if ( "valueAsNumber" in a && a.value != a.valueAsNumber ) {
+        if ( "defineProperty" in Object && "getPrototypeOf" in Object ) {
+            Object.defineProperty( Object.getPrototypeOf( a ), "valueAsNumber", {
+                get: function () { return parseInt( this.value, 10 ); }
+            });
+        }
+    }
+
+}());
+//This function calculates the total amount for the table
+function totalAmountCalc() {
+      var total;
+      var amount1 = parseFloat(document.querySelector("#amount1").value);
+      console.log("amount1 "+ amount1);
+      if(isNaN(amount1)){console.log(amount1); amount1 = 0; }
+      var amount2 =  parseFloat(document.querySelector("#amount2").value);
+      console.log(amount2);
+      if(isNaN(amount2)){console.log(amount2); amount2 = 0; }
+      var amount3 =  parseFloat(document.querySelector("#amount3").value);
+      if(isNaN(amount3)){console.log(amount3); amount3 = 0; }
+      var amount4 =  parseFloat(document.querySelector("#amount4").value);
+      if(isNaN(amount4)){console.log(amount4); amount4 = 0; }
+      var amount5 =  parseFloat(document.querySelector("#amount5").value);
+      if(isNaN(amount5)){console.log(amount5); amount5 = 0; }
+      var amount6 =  parseFloat(document.querySelector("#amount6").value);
+      if(isNaN(amount6)){console.log(amount6); amount6 = 0; }
+      var amount7 =  parseFloat(document.querySelector("#amount7").value);
+      if(isNaN(amount7)){console.log(amount7); amount7 = 0; }
+      var amount8 =  parseFloat(document.querySelector("#amount8").value);
+      if(isNaN(amount8)){console.log(amount8); amount8 = 0; }
+      var amount9 =  parseFloat(document.querySelector("#amount9").value);
+      if(isNaN(amount9)){console.log(amount9); amount9 = 0; }
+      var amount10 =  parseFloat(document.querySelector("#amount10").value);
+      if(isNaN(amount10)){console.log(amount10); amount10 = 0; }
+      total = amount1 + amount2 + amount3 + amount4 + amount5 + amount6 + amount7 + amount8 + amount9 + amount10;
+
+      console.log(total);
+      document.querySelector("#partsTable > tbody > tr:nth-child(12) > td:nth-child(8) > span").innerHTML = "Total: $ " + parseFloat(total).toFixed(2);
+}
+//This code block runs the totalAmountCalc function whenever there is a change in the table
+  $('#partsTable').change(
+    function(){
+      totalAmountCalc();
+    }
+  );
+
+  function insertTotal(){
+    var typePremium = document.querySelector('input[value="ctl01"]').checked;
+    var typeTrans = document.querySelector('input[value="ctl00"]').checked;
+
+    if(typePremium){
+      var amountForPremium = document.querySelector('input[title="Enter the Total Invoice Amount to be Billed"]').value;
+      document.querySelector('#dataTable > td.ms-formbody > span > div > div.ms-rtestate-write.ms-rteflags-0.ms-rtestate-field > p').innerText = '[{"total":"Total Invoice Amount to be Billed: $' + amountForPremium + '"}]';
+      console.log("Premium amount: " + amountForPremium);
+    }
+    if(typeTrans){
+      var amountForTrans = document.querySelector("#partsTable > tbody > tr:nth-child(12) > td:nth-child(8) > span").textContent.slice(8).trim();
+      document.querySelector('input[title="Enter the Total Invoice Amount to be Billed"]').value = amountForTrans;
+      console.log("Trans amount: " + amountForTrans);      
+    }
+  };
+
+  $('#partsTable > tbody > tr:nth-child(2)').change(
+      function(){
+        var quant = document.querySelector("#quantity1").value;
+        var pric = document.querySelector("#price1").value;
+        var amt = quant*pric;
+        console.log("actual amt "+amt);
+      });
+
+
+    $('#partsTable > tbody > tr:nth-child(2)').change(
+      function(){
+        //var tax = document.querySelector("#tax1").valueAsNumber;
+        var price =  parseFloat(document.querySelector("#price1").value);
+        var quantity = parseFloat(document.querySelector("#quantity1").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount1").value = amt.toFixed(2);
+        console.log(amt);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(3)').change(
+      function(){
+        //var tax = document.querySelector("#tax2").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price2").value);
+        var quantity = parseFloat(document.querySelector("#quantity2").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount2").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(4)').change(
+      function(){
+        //var tax = document.querySelector("#tax3").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price3").value);
+        var quantity = parseFloat(document.querySelector("#quantity3").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount3").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(5)').change(
+      function(){
+        //var tax = document.querySelector("#tax4").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price4").value);
+        var quantity = parseFloat(document.querySelector("#quantity4").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount4").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(6)').change(
+      function(){
+        //var tax = document.querySelector("#tax5").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price5").value);
+        var quantity = parseFloat(document.querySelector("#quantity5").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount5").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(7)').change(
+      function(){
+        //var tax = document.querySelector("#tax6").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price6").value);
+        var quantity = parseFloat(document.querySelector("#quantity6").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount6").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(8)').change(
+      function(){
+        //var tax = document.querySelector("#tax7").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price7").value);
+        var quantity = parseFloat(document.querySelector("#quantity7").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount7").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(9)').change(
+      function(){
+        //var tax = document.querySelector("#tax8").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price8").value);
+        var quantity = parseFloat(document.querySelector("#quantity8").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount8").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(10)').change(
+      function(){
+        //var tax = document.querySelector("#tax9").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price9").value);
+        var quantity = parseFloat(document.querySelector("#quantity9").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount9").value = amt.toFixed(2);
+      }
+    );
+    $('#partsTable > tbody > tr:nth-child(11)').change(
+      function(){
+        //var tax = document.querySelector("#tax10").valueAsNumber;
+        var price = parseFloat(document.querySelector("#price10").value);
+        var quantity = parseFloat(document.querySelector("#quantity10").value);
+        var amt = parseFloat(quantity * price);
+        document.querySelector("#amount10").value = amt.toFixed(2);
+      }
+    );
+
+function deleteRow(){
+  var x = $(this).attr('id');
+  var target = event.target || event.srcElement;
+  var rowValue = target.id;
+  rowValue = rowValue.slice(10);
+  console.log(x);
+  document.querySelector("#partNumber"+rowValue).value = '';
+  document.querySelector("#description"+rowValue).value = '';
+  document.querySelector("#quantity"+rowValue).value = '';
+  document.querySelector("#price"+rowValue).value = '';
+  document.querySelector("#tax"+rowValue).value = '';
+  document.querySelector("#amount"+rowValue).value = '';
+  document.querySelector("#glDist"+rowValue).value = '';
+  totalAmountCalc();
+}
+var partsNumberArray = [];
+
+function makeJsonBaby(i){
+  var partNumber = document.querySelector("#partNumber"+i).value;
+  var description = document.querySelector("#description"+i).value;
+  var quantity = document.querySelector("#quantity"+i).value;
+  var price = document.querySelector("#price"+i).value;
+  var tax = document.querySelector("#tax"+i).value;
+  var amount = parseFloat(price) * parseFloat(quantity);
+  document.querySelector("#amount"+i).value = amount;
+  var gldist = document.querySelector("#glDist"+i).value;
+  var partNumberObject = {
+    partNumber: partNumber,
+    description: description,
+    quantity: quantity,
+    price: price,
+    tax: tax,
+    amount: amount,
+    gldist: gldist
+  };
+  
+  //alert(JSON.stringify(partNumberObject));
+  var stringObject = JSON.stringify(partNumberObject);
+  partsNumberArray.push(stringObject);
+};
+
+  function numberOfItems(){
+    
+    var partNumberCaptured;
+    var partsCounted = 0;
+    for (var i = 1; i < 11; i++) { 
+      partNumberCaptured = document.querySelector("#partNumber"+i).value;
+      if(partNumberCaptured.length > 0){
+        makeJsonBaby(i);
+        partsCounted++;
+        }
+      } 
+      var totalAmount = document.querySelector("#partsTable > tbody > tr:nth-child(12) > td:nth-child(8) > span").innerText;
+      var totalObject = {
+        total: totalAmount
+      };
+      partsNumberArray.push(JSON.stringify(totalObject));
+      document.querySelector('#dataTable > td.ms-formbody > span > div > div.ms-rtestate-write.ms-rteflags-0.ms-rtestate-field > p').innerText = "[" + partsNumberArray + "]";
+      insertTotal();
+      setTimeout(document.querySelector('input[value="Submit"]').click(), 1000);
+  };
+
+  $('#part1 > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(4) > table > tbody > tr').prepend( $('#jsonMaker') );
+
+  function openCustomerSelect() {
+  var myWindow = window.open("../../SiteAssets/FinancialFormsLibraryApp/InvoiceRequests_/CustomerSelectApp/customerSelect.html", "", "scrollbars=yes,resizable=yes,width=1750,height=600,top=300,left=100");
+  }
+
+  window.addEventListener('focus', function(){
+  document.querySelector('input[title="Customer Number Required Field"]').value = localStorage.getItem('customer-number');
+  document.querySelector('input[title="Customer Name"]').value = localStorage.getItem('customer-name');
+  document.querySelector('input[title="Bill To Contact Name"]').value = localStorage.getItem('billToContactName');
+  document.querySelector('input[title="Bill To Address"]').value = localStorage.getItem('billToAddress');
+  document.querySelector('input[title="Bill To Street 1"]').value = localStorage.getItem('billToStreet1');
+  document.querySelector('input[title="Bill To Street 2"]').value = localStorage.getItem('billToStreet2');
+  document.querySelector('input[title="Bill To City"]').value = localStorage.getItem('billToCity');
+  document.querySelector('input[title="Bill To State"]').value = localStorage.getItem('billToState');
+  document.querySelector('input[title="Bill To Zip"]').value = localStorage.getItem('billToZip');
+  document.querySelector('input[title="Affiliation Type"]').value = localStorage.getItem('affiliation');
+  });
+
+  window.addEventListener('focus', function(){
+  console.log("Identifier: " + localStorage.getItem('identifier'));
+  document.querySelector("#partNumber" + localStorage.getItem('identifier')).value = localStorage.getItem('part-number');
+  document.querySelector("#description" + localStorage.getItem('identifier')).value = localStorage.getItem('description');
+  document.querySelector("#price" + localStorage.getItem('identifier')).value = localStorage.getItem('nonMemberprice');
+  document.querySelector("#glDist" + localStorage.getItem('identifier')).value = localStorage.getItem('glDist');
+  localStorage.removeItem('part-number');
+  localStorage.removeItem('description');
+  localStorage.removeItem('nonMemberprice');
+  localStorage.removeItem('glDist');
+  localStorage.removeItem('identifier');
+  });
+
+  $('[title="Billing Frequency"]').change(function(){
+  var billFreq = document.querySelector('[title="Billing Frequency"]').value;
+  if(billFreq != 'One Time'){
+    document.querySelector('input[title="Comments and Attachments"]').placeholder = 'Required: Please provide detail regarding this recurring invoice.';
+  }
+});
+
+$('input[value="ctl01"]').change(function(){
+  console.log('Change detected');
+  var type = document.querySelector('input[value="ctl01"]').checked;
+  if(type){
+    document.querySelector("#rowForTable").style.visibility = "collapse";
+    document.querySelector("#partsTable").style.display = "none";
+    document.querySelector("#totalInvoice").style.display = "table-row";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td > span:nth-child(1)").style.display = "table-row";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.position = "absolute";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.top = "1170px";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(28) > td.ms-formbody > span:nth-child(2)").style.display = "none";
+  } else {
+    document.querySelector("#rowForTable").style.visibility = "visible";
+    document.querySelector("#partsTable").style.display = "table";
+  }
+});
+
+$('[title="Billing Frequency"]').change(function(){
+  console.log('Change detected');
+var frequency  = document.querySelector('[title="Billing Frequency"]').value;
+if(frequency == 'One Time'){
+  document.querySelector('input[title="Contract Number"]').value = '';
+}
+});
+
+$('input[value="ctl00"]').change(function(){
+  var type = document.querySelector('input[value="ctl00"]').checked;
+  if(type){
+    document.querySelector("#rowForTable").style.visibility = "visible";
+    document.querySelector("#partsTable").style.display = "table";
+    document.querySelector("#totalInvoice").style.display = "none";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td > span:nth-child(1)").style.display = "contents";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.position = "absolute";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.top = "1170px";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(28) > td.ms-formbody > span:nth-child(2)").style.display = "none";
+  }
+});
+
+$('input[value="ctl01"]').ready(function(){
+  setTimeout(function(){ 
+    var type = document.querySelector('input[value="ctl01"]').checked;
+    if(type){
+    document.querySelector("#rowForTable").style.visibility = "collapse";
+    document.querySelector("#partsTable").style.display = "none";
+    document.querySelector("#totalInvoice").style.display = "contents";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td > span:nth-child(1)").style.display = "contents";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.position = "absolute";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(2) > td").style.top = "1170px";
+    document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(28) > td.ms-formbody > span:nth-child(2)").style.display = "none";
+  }
+    
+  }, 500);
+
+  window.onload = generateRecurrentInvoiceRequestFromOldOne();
+
+function generateRecurrentInvoiceRequestFromOldOne(){
+  //This function takes the data in localstorage and applies it to the current form so users can create a new invoice request from an old one.
+function create_UUID(){
+  //creates the random 16 digit value to be used as the contract number
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16).toUpperCase();
+    });
+    document.querySelector('input[title="Contract Number"]').value = uuid;
+    console.log(uuid);
+    return uuid;
+}; 
+
+var contractValue = localStorage.getItem('contract-number');
+
+if(contractValue == null){
+  create_UUID();
+} else {
+  document.querySelector("#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(27)").style.visibility = 'collapse';
+  document.querySelector('[title="Billing Frequency"]').selectedOptions['0'].value = 'Recurring Invoice';
+  document.querySelector('input[title="Contract Number"]').value = localStorage.getItem('contract-number');
+}
+
+document.querySelector('input[value="ctl00"]').checked = localStorage.getItem('invoiceTypeTrans');
+document.querySelector('input[value="ctl01"]').checked = localStorage.getItem('invoiceTypePremium');
+document.querySelector('input[title="Customer Number Required Field"]').value = localStorage.getItem('customer-number');
+document.querySelector('input[title="Customer Name"]').value = localStorage.getItem('customer-name');
+document.querySelector('input[title="Bill To Contact Name"]').value = localStorage.getItem('billToContactName');
+document.querySelector('input[title="Bill To Address"]').value = localStorage.getItem('billToAddress');
+document.querySelector('input[title="Bill To Street 1"]').value = localStorage.getItem('billToStreet1');
+document.querySelector('input[title="Bill To Street 2"]').value = localStorage.getItem('billToStreet2');
+document.querySelector('input[title="Bill To City"]').value = localStorage.getItem('billToCity');
+document.querySelector('input[title="Bill To State"]').value = localStorage.getItem('billToState');
+document.querySelector('input[title="Bill To Zip"]').value = localStorage.getItem('billToZip');
+document.querySelector('input[title="Affiliation Type"]').value = localStorage.getItem('affiliation');
+var partsArray = [];
+partsArray.push(JSON.parse(localStorage.getItem('jsonPayLoad')));
+console.log(partsArray[0].length);
+var arrayLength = (partsArray[0].length) - 1;
+for(var i = 0; i < arrayLength; i++){
+  var adjuster = i+2;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(3) > input").value = partsArray[0][i].partNumber;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(4) > input").value = partsArray[0][i].description;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(5) > input").value = partsArray[0][i].quantity;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(6) > input").value = partsArray[0][i].price;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(7) > input").value = partsArray[0][i].tax;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(8) > input").value = partsArray[0][i].amount;
+  document.querySelector("#partsTable > tbody > tr:nth-child(" + adjuster + ") > td:nth-child(9) > input").value = partsArray[0][i].gldist;
+}
+totalAmountCalc();
+//localStorage.clear();
+};
+
+});
+</script>
+
+
+
+
+
+<style> 
+
+#totalInvoice > td.ms-formlabel > h3 > nobr {
+  white-space: normal;
+}
+#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(10), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(11), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(18), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(19) {
+  visibility: collapse;
+}
+
+#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(41), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(40), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(39), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(38), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(37), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(36), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(35), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(34), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(33), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(32), 
+#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(31), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(42) {
+  visibility: collapse;
+}
+
+button, input[value="Cancel"] {
+  border-radius: 10px;
+}
+
+#s4-titlerow, .s4-titlerowhidetitle {
+    display: block !important;
+}
+
+#MSOZoneCell_WebPartWPQ4, #part1 > table > tbody > tr:nth-child(1) {
+    visibility: collapse;
+}
+
+#part1 > table > tbody > tr:nth-child(1), #part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(1) {
+    visibility: collapse !important;
+}
+
+#part1 > table > tbody > tr:nth-child(3) > td > table > tbody > tr:nth-child(3) > td.ms-formlabel > h3 > nobr {
+    white-space: normal;
+}
+
+#sectionTitle {
+    padding-top: 35px;
+}
+
+#productDetailsLocation {
+    position: relative;
+    left: -207px;
+}
+
+#rowForTable {
+  vertical-align: top;
+  height: 700px;
+}
+
+#partsTable {
+  table-layout: fixed;
+  width: 995px;
+  position: absolute;
+  top: 1175px;
+}
+
+input[value="Submit"]  {
+  visibility: collapse;
+}
+
+#part1 > table > tbody > tr:nth-child(4) > td {
+  padding-top: 120px;
+}
+
+#dataTable {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#9ABAD9;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#9ABAD9;color:#444;background-color:#EBF5FF;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#9ABAD9;color:#fff;background-color:#409cff;}
+.tg .tg-k04z{background-color:#c0c0c0;border-color:#656565;text-align:left;vertical-align:top}
+.tg .tg-9adz{background-color:#c0c0c0;color:#444444;border-color:#656565;text-align:left;vertical-align:top}
+.tg .tg-n2m0{font-weight:bold;background-color:#c0c0c0;color:#000000;border-color:#656565;text-align:left;vertical-align:top}
+.tg .tg-ehtc{background-color:#ffffff;color:#444444;border-color:#656565;text-align:left;vertical-align:top}
+.tg .tg-qxfx{background-color:#ffffff;color:#444444;border-color:#656565;text-align:left;vertical-align:top}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: red;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: red;
+}
+</style>

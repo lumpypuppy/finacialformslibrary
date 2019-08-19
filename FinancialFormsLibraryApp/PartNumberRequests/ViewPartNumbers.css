@@ -1,0 +1,32 @@
+<style>
+.ms-vh, .ms-vh2, .ms-vh-icon, .ms-vh-icon-empty, .ms-vh2-nofilter, .ms-vh2-nofilter-notextalign, .ms-vh2-nofilter-perm, .ms-vhImage, .ms-vh2-nograd, .ms-vh3-nograd, .ms-vh2-nograd-icon, .ms-vh2-nofilter-icon, .ms-ph {
+    font-weight: normal;
+    font-size: 11px;
+    color: #777;
+    text-align: left;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
+
+#\{2C039CAA-CE9F-4FD0-BA59-7E8F66963B60\}-\{42AE1E5B-4C38-417B-AE45-11BC55EFFBF2\}  tbody  td:first-child + td + td + td + td + td + td + td + td a{
+    pointer-events: none;
+    color: #444444;
+}
+
+tbody  tr  td:first-child + td + td + td + td + td + td a{
+    pointer-events: none;
+    color: #444444;
+}
+
+tbody  tr  td:first-child + td + td + td + td + td + td {
+    width: 150px;
+}
+
+tbody  tr  td:first-child + td + td + td + td + td + td + td + td + td + td + td {
+    width: 160px;
+}
+
+</style>

@@ -1,0 +1,186 @@
+<script src="../../SiteAssets/FinancialFormsLibraryApp/InvoiceRequests%E2%80%8B/PartNumberSelectApp/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Part Code Search</title>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:_dlc_DocId msdt:dt="string">MS7XCWTDAWNM-1981315842-45</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">7b11d3e5-e42a-45e4-9153-5246bf752244</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://qacollaborate2.ncci.com/sites/ffl/_layouts/15/DocIdRedir.aspx?ID=MS7XCWTDAWNM-1981315842-45, MS7XCWTDAWNM-1981315842-45</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+    <div id="searchDiv">
+      <input type="text" placeholder="Please enter the 4 digit product code" aria-label="Product Code">
+      <button>Search</button>
+    </div>
+    <div id="searchResultsDiv">
+      <p>Search Results</p>
+      <span id="searchResults"></span>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+console.log(localStorage.getItem('affiliation'));
+var selectedFunction;
+var results;
+var searchBoxValue;
+$(document).ready(function() {
+document.querySelector("#searchDiv > button").addEventListener('click', getData);
+
+function getData(){
+  document.querySelector("body").style.backgroundImage = "url('./loading_giphy.gif')";
+  document.querySelector("#searchResults").innerHTML = "";
+  var captured = document.querySelector("#searchDiv > input").value.trim();   
+        
+        //This is the REST call to grab the ProductGroup list data
+        var endPointUrl = "https://prod-41.westus.logic.azure.com/workflows/539dfc8910ea4edfaacdb5ce442d5f95/triggers/manual/paths/invoke/prodCode/%7B"+ captured +"%7D?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0T1wyHtVm3PQXSga71F4zLJIkudBvg7eBMJKKYZM03A"
+         $.ajax({
+      
+                         url: endPointUrl,
+                         method: "GET",
+                         headers: { "Accept":  "application/json; odata=verbose","Content-Type":"application/json; odata=verbose" },
+                         success: function  (data) {					   
+                  
+                 var results = JSON.stringify(data)               						
+                  if(results.length > 0){
+                    //console.log(data + " BREAK " + results);
+                    filterResults(data);						
+                  }	else{
+                          document.querySelector("#searchDiv > input[type=text]").value = '';
+                          document.querySelector("body").style.backgroundImage = "none";
+                          alert('No results found');
+                  }					
+                        },
+                        error: function  (data) {
+                          document.querySelector("#searchDiv > input[type=text]").value = '';
+                          document.querySelector("body").style.backgroundImage = "none";
+                          alert('No results found');
+                       }
+                }); 
+  
+};
+
+function filterResults (arg) {
+  document.querySelector("body").style.backgroundImage = 'none'; 
+  localStorage.removeItem('part-number');
+  localStorage.removeItem('description');
+  localStorage.removeItem('nonMemberprice');
+  localStorage.removeItem('glDist');
+
+  results2 = arg;
+  console.log("TEST   " + results2);
+  var filteredArray=[];
+  results2.forEach(function(result, index){
+    console.log(result.PRODUCT_CODE);
+      filteredArray.push(result);
+  });
+console.log(filteredArray);
+  document.querySelector("#searchResults").innerHTML = "";
+  var searchResults = document.querySelector("#searchResults");
+  var table = document.createElement('table');
+  document.querySelector("#searchResults").appendChild(table);
+
+  table.innerHTML = '<table id="partsTable" class="tg" style="table-layout: fixed; width: 1600px"><colgroup><col style="width: 63px"><col><col><col><col style="width: 400px"><col style="width: 0px"><col style="width: 275px"></colgroup><tr><th></th><th class="hideCellId">Category</th><th class="hideCellId">Created By</th><th class="hideCellId">Creation Date</th><th class="tg-n2m0">Part Number</th><th class="hideCellId">Future Misc</th><th class="tg-n2m0">GL Dist</th><th class="hideCellId">Media</th><th class="tg-n2m0" style="width: 75px">Member Price</th><th class="tg-n2m0" style="width: 75px">Non-Affiliate Member Price</th><th class="tg-n2m0" style="width: 75px">Non-Member Price</th><th class="tg-n2m0" style="width: 300px">Description</th><th class="hideCellId">Product Code</th><th class="tg-n2m0">Product Family</th><th class="hideCellId" style="width: 75px">Product Location</th><th class="hideCellId">Types</th></tr><tr></tr>';
+
+  function tableResults (PART_NUMBER, index){
+  //alert(filteredArray[index].CATEGORY);
+  table.innerHTML += '<tr class="cellId"><td class="selectButton">' + '<button id="button1" onclick="selectedFunction(event)">Select</button>' + '</td>' + '<td class="hideCellId">' + filteredArray[index].CATEGORY + '</td>' + '<td class="hideCellId">' + filteredArray[index].CREATED_BY + '</td>' + '<td class="hideCellId">' + filteredArray[index].CREATION_DATE + '</td>' + '<td class="cellId">' + filteredArray[index].PART_NUMBER + '</td>' + '<td class="hideCellId">' + filteredArray[index].FUTURE_MISC + '</td>' + '<td class="cellId">' + filteredArray[index].GL_ACCOUNT + '</td>' + '<td class="hideCellId">' + filteredArray[index].MEDIA + '</td>' + '<td class="cellId">' + filteredArray[index].MEMBER_PRICE + '</td>' + '<td class="cellId">' + filteredArray[index].NON_AFFILIATE_MEMBER_PRICE + '</td>' + '<td class="cellId">' + filteredArray[index].NON_MEMBER_PRICE + '</td>' + '<td class="cellId">' + filteredArray[index].DESCRIPTION + '</td>' + '<td class="hideCellId">' + filteredArray[index].PRODUCT_CODE + '</td>' + '<td class="cellId">' + filteredArray[index].PRODUCT_FAMILY + '</td>' + '<td class="hideCellId">' + filteredArray[index].PRODUCT_LOCATION + '</td>' + '<td class="hideCellId">' + filteredArray[index].TYPES + '</td>' + '</tr>';
+  };
+
+  filteredArray.forEach(tableResults);
+};
+
+  });
+
+  selectedFunction = function (event){
+  var memberType = localStorage.getItem('affiliation');
+  var target = event.target || event.srcElement;
+  var rowValue = target.parentNode.nextElementSibling.parentElement.innerText;
+  var arrayedData = rowValue.split("	");
+  //alert(rowValue);
+  localStorage.setItem('part-number', target.parentNode.nextElementSibling.parentElement.cells[4].innerText);
+  localStorage.setItem('description', target.parentNode.nextElementSibling.parentElement.cells[11].innerText);
+  if(memberType == 'Non-Member'){
+    localStorage.setItem('nonMemberprice', target.parentNode.nextElementSibling.parentElement.cells[10].innerText);
+  }else{ 
+    localStorage.setItem('nonMemberprice', target.parentNode.nextElementSibling.parentElement.cells[8].innerText);
+  }
+  localStorage.setItem('glDist', target.parentNode.nextElementSibling.parentElement.cells[6].innerText);
+  window.close();            
+  };
+  
+</script>
+
+
+<style>
+tbody:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+.hideCellId {
+    visibility: collapse;
+    max-width: 0px;
+    min-width: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#searchDiv > input[type=text] {
+  width: 300px;
+}
+
+  .selectButton {
+    max-width: 25px !important;
+  }
+
+td {
+    border-color: #afb1b3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#searchDiv, #searchResultsDiv {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    display: table;
+}
+
+.form-control{
+  width: 50%;
+}
+
+th {
+    text-align: start;
+    vertical-align: bottom;
+    border: gray;
+    border-style: solid;
+    border-width: 1px;
+}
+
+body{
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+</style>

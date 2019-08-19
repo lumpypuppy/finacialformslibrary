@@ -1,0 +1,216 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Select</title>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">Chris Hernandez</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:_dlc_DocId msdt:dt="string">MS7XCWTDAWNM-1981315842-39</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">a355d492-879f-4a4c-b430-4d8e06934375</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://qacollaborate2.ncci.com/sites/ffl/_layouts/15/DocIdRedir.aspx?ID=MS7XCWTDAWNM-1981315842-39, MS7XCWTDAWNM-1981315842-39</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+    <div id="searchDiv" style="text-align: left">
+      <h4 style="text-align: left">Please enter customer number or customer name.<br></h4>
+      <input type="text" placeholder="Customer Number" aria-label="Customer Number" style="text-align: left">
+      <button style="text-align: left">Search</button>&nbsp;
+      <input type="text" placeholder="Customer Name" aria-label="Customer Name" style="text-align: left">
+      <button style="text-align: left">Search</button>
+    </div>
+    <div id="searchResultsDiv">
+      <p>Search Results</p>
+      <span id="searchResults"></span>
+    </div>
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+var selectedFunction;
+$(document).ready(function() {
+
+  //Get search field value function
+  //document.querySelector("body > div > button").addEventListener('click', getCustomerNumberResults);
+  document.querySelector("#searchDiv > button:nth-child(3)").addEventListener('click', getCustomerNumberResults);
+  document.querySelector("#searchDiv > button:nth-child(5)").addEventListener('click', getCustomerNameResults);
+
+  
+function runGif(){
+  document.querySelector("#searchResults").innerHTML = "";
+  document.querySelector("body").style.backgroundImage = "url('./loading_giphy.gif')";
+};
+
+
+function postResults(results){
+          document.querySelector("#searchResults").innerHTML = "";
+          var searchResults = document.querySelector("#searchResults");
+          var table = document.createElement('table');
+          document.querySelector("#searchResults").appendChild(table);
+
+          table.innerHTML = '<table id="partsTable" class="tg" style="undefined;table-layout: fixed; width: 995px"><colgroup><col style="width: 75px"><col style="width: 100px"><col style="width: 100px"><col style="width: 301px"><col style="width: 201px"><col style="width: 201px"><col style="width: 201px"><col style="width: 65px"><col style="width: 201px"></colgroup><tr><th></th><th class="tg-n2m0">Contact ID</th><th class="tg-n2m0">Customer Number</th><th class="tg-n2m0">Customer Name</th><th class="tg-n2m0">Bill To Contact Name</th><th class="tg-n2m0">Bill To Address</th><th class="hideCellId">Bill To Street</th><th class="hideCellId">Bill To Street 2</th><th class="tg-n2m0">City</th><th class="tg-n2m0">State</th><th class="tg-n2m0">Zip</th><th class="tg-n2m0">Affiliation Type</th><th class="tg-n2m0">Contact Role</th></tr><tr></tr>';
+
+          function tableResults (COMPANY, index){
+            var affiliation = results[index].AFFILIATION_TYPE;
+            //alert(results[index].CustomerName);
+            if(affiliation == null){
+              affiliation = 'Non-Member';
+            };
+
+            table.innerHTML += '<tr class="cellId"><td class="selectButton">' + '<button id="button'+ results[index].Title +'" onclick="selectedFunction(event)">Select</button>' + '</td>' + '<td class="cellId">' + results[index].NCCI_CONTACT_ID + '</td>' + '<td class="cellId">' + results[index].NCCI_CUSTOMER_NUMBER + '</td>' + '<td class="cellId">' + results[index].COMPANY + '</td>' + '<td class="cellId">' + results[index].FIRSTNAME + " " + results[index].LASTNAME + '</td>' + '<td class="cellId">' + results[index].STREET + '</td>' + '<td class="hideCellId">' + results[index].STREET + '</td>' + '<td class="hideCellId">' + results[index].STREET + '</td>' + '<td class="cellId">' + results[index].CITY + '</td>' + '<td class="cellId">' + results[index].STATE + '</td>' + '<td class="cellId">' + results[index].POSTCODE + '</td>' + '<td class="cellId">' + affiliation + '</td>' + '<td class="cellId">' + results[index].ROLE_DESCR.toUpperCase() + '</td>' + '</tr>';
+            }
+            if(document.querySelector("#searchResults").childElementCount > 0){document.querySelector("body").style.backgroundImage = "none"}
+
+            
+            selectedFunction = function (event){
+              var target = event.target || event.srcElement;
+              //var rowValue = target.parentNode.nextElementSibling.parentElement.innerText;
+              //var arrayedData = rowValue.split("	");
+              //alert(rowValue);
+              localStorage.setItem('customer-number', target.parentNode.nextElementSibling.parentElement.cells[2].innerText);
+              localStorage.setItem('customer-name', target.parentNode.nextElementSibling.parentElement.cells[3].innerText);
+              localStorage.setItem('billToContactName', target.parentNode.nextElementSibling.parentElement.cells[4].innerText);
+              localStorage.setItem('billToAddress', target.parentNode.nextElementSibling.parentElement.cells[5].innerText);
+              localStorage.setItem('billToStreet1', target.parentNode.nextElementSibling.parentElement.cells[6].innerText);
+              localStorage.setItem('billToStreet2', target.parentNode.nextElementSibling.parentElement.cells[7].innerText);
+              localStorage.setItem('billToCity', target.parentNode.nextElementSibling.parentElement.cells[8].innerText);
+              localStorage.setItem('billToState', target.parentNode.nextElementSibling.parentElement.cells[9].innerText);
+              localStorage.setItem('billToZip', target.parentNode.nextElementSibling.parentElement.cells[10].innerText);
+              localStorage.setItem('affiliation', target.parentNode.nextElementSibling.parentElement.cells[11].innerText)
+              window.close();
+            
+            
+          };
+
+          results.forEach(tableResults);
+
+        } 
+        //This Function is a REST Get to retrieve items related to customer number
+        function getCustomerNumberResults(){
+        var captured = parseInt(document.querySelector("body > div > input").value.trim());
+        console.log(typeof captured);
+        if(isNaN(captured)){
+          alert('This is not a number. Please try again.');
+          document.querySelector("body > div > input").value = '';
+          return;
+        }else{
+        console.log('this is a number');
+        runGif();
+
+        //This is the REST call to grab the ProductGroup list data
+        var endPointUrl = "https://prod-13.westus.logic.azure.com/workflows/39f27fa44b524be1892413ba092ce0db/triggers/manual/paths/invoke/customerCode/{"+ captured +"}?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ebPt87oKOGm2_gnNDYO9qHpAn8cT713JjyjTCAKZkyY";
+         $.ajax({
+      
+                         url: endPointUrl,
+                         method: "GET",
+                         headers: { "Accept":  "application/json; odata=verbose","Content-Type":"application/json; odata=verbose" },
+                         success: function  (data) {					   
+                  
+                 var results = data                     						
+                  if(results.length > 0){	
+                    console.log(results);					
+                    postResults(results);						
+                  }	else{
+                    document.querySelector("body > div > input").value = '';
+                    document.querySelector("body").style.backgroundImage = "none";
+                    alert('No results found');
+                  }					
+                        },
+                        error: function  (data) {
+                            alert("Error: "+ data);
+                       }
+                });
+        }
+ 
+        }
+
+        //This Function is a REST Get to retrieve items related to customer number
+        function getCustomerNameResults(){
+        var captured = document.querySelector("#searchDiv > input[type=text]:nth-child(4)").value.toUpperCase().trim();
+        runGif();
+        //This is the REST call to grab the ProductGroup list data
+        var endPointUrl = "https://prod-119.westus.logic.azure.com/workflows/a0f6e6f6c9424fc4bbf558d0eafefedf/triggers/manual/paths/invoke/customerName/{" + captured + "}?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EVNr-Ap6-uP5LO_-EgJpJwi9b5Ym6xlFaLnpA4ash7c"
+         $.ajax({
+      
+                         url: endPointUrl,
+                         method: "GET",
+                         headers: { "Accept":  "application/json; odata=verbose","Content-Type":"application/json; odata=verbose" },
+                         success: function  (data) {					   
+                  
+                 var results = data                     						
+                  if(results.length > 0){	
+                    console.log(results);					
+                    postResults(results);						
+                  }	else{
+                    document.querySelector("#searchDiv > input[type=text]:nth-child(4)").value = '';
+                    document.querySelector("body").style.backgroundImage = "none";
+                    alert('No results found');
+                  }					
+                        },
+                        error: function  (data) {
+                            alert("Error: "+ data);
+                       }
+                }); 
+        }
+  })
+</script>
+
+
+<style>
+tbody:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+  .hideCellId {
+  width: 0px;
+  visibility: hidden;
+  display: none;
+}
+
+  .selectButton {
+    max-width: 25px !important;
+  }
+
+td {
+    border-color: #afb1b3;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#searchDiv, #searchResultsDiv {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    display: table;
+}
+
+.form-control{
+  width: 50%;
+}
+
+body{
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+</style>
